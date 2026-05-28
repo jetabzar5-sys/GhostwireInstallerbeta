@@ -196,6 +196,13 @@ ask_location() {
 
 download_binary() {
     local bin_name="$1"
+
+    # Check if binary already exists
+    if [ -f "/usr/local/bin/${bin_name}" ]; then
+        p_ok "Binary already exists: /usr/local/bin/${bin_name}"
+        return
+    fi
+
     local dl_name="${bin_name}${BINARY_SUFFIX}"
     local base_url="${GW_MIRROR_BASE_URL:-https://github.com/${GITHUB_REPO}/releases/${GW_VERSION}/download}"
     local bin_url="${base_url}/${dl_name}"
